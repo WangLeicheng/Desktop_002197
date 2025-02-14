@@ -42,6 +42,11 @@ int main()
     root = insert(root, 6);
     root = insert(root, 7);
     
+    printf("%d\n", root->value);
+    printf("%d\n", root->left->value);
+    printf("%d\n", root->right->value);
+    printf("%d\n", root->left->left->value);
+    printf("%d\n", root->left->right->value);
     traversal(root, TRAVERSAL_IN_ORDER);
 
     printf("%d\n", root->value);
@@ -49,6 +54,22 @@ int main()
     printf("%d\n", root->right->value);
     printf("%d\n", root->left->left->value);
     printf("%d\n", root->left->right->value);
+    traversal(root, TRAVERSAL_PRE_ORDER);
+    
+    printf("%d\n", root->value);
+    printf("%d\n", root->left->value);
+    printf("%d\n", root->right->value);
+    printf("%d\n", root->left->left->value);
+    printf("%d\n", root->left->right->value);
+    traversal(root, TRAVERSAL_POST_ORDER);
+
+    printf("%d\n", root->value);
+    printf("%d\n", root->left->value);
+    printf("%d\n", root->right->value);
+    printf("%d\n", root->left->left->value);
+    printf("%d\n", root->left->right->value);
+    traversal(root, TRAVERSAL_LEVEL_ORDER);
+
     return 0;
 }
 
@@ -169,17 +190,50 @@ void traversal_InOrder(ST_Node *root)
 
 void traversal_PreOrder(ST_Node *root)
 {
-
+    if (root != NULL) {
+       printf("%d ", root->value);
+       traversal_PreOrder(root->left);
+       traversal_PreOrder(root->right);
+    }
 }
 
 void traversal_PostOrder(ST_Node *root)
 {
-
+    if (root != NULL) {
+       traversal_PostOrder(root->left);
+       traversal_PostOrder(root->right);
+       printf("%d ", root->value);
+    }
 }
 
 void traversal_LevelOrder(ST_Node *root)
 {
 
+    if (root == NULL) {
+        return;
+    }
+
+    ST_Node** queue = (ST_Node**)malloc(sizeof(ST_Node*) * 1000);
+
+    int front = 0;
+    int rear = 0;
+
+    queue[rear++] = root;
+
+    while (front < rear) {
+        ST_Node* currentNode = queue[front++];
+        printf("%d ", currentNode->value);
+
+        if (currentNode->left != NULL) {
+            queue[rear++] = currentNode->left;
+        }
+
+        if (currentNode->right != NULL) {
+            queue[rear++] = currentNode->right;
+        }
+    }
+
+    free(queue);
 }
 
 void traversal(ST_Node *root, E_TRAVERSAL_TYPE type)

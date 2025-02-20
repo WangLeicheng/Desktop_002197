@@ -5,3 +5,4 @@ add 20250122120
 
 add 202502200956 using the id_WangLeicheng_rsa.pub from the P775 WSL ubuntu 22.04
 
+test for the situation where the remote is changed but local don't git pull timely and git commit

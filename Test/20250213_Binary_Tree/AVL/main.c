@@ -27,12 +27,16 @@ ST_Node*  leftRotate(ST_Node *node);
 ST_Node* rightRotate(ST_Node *node);
 
 ST_Node* insert(ST_Node *root, int data);
+ST_Node* search(ST_Node *root, int data);
+ST_Node* delete(int data);
 
 void traversal_InOrder(ST_Node *root);
 void traversal_PreOrder(ST_Node *root);
 void traversal_PostOrder(ST_Node *root);
 void traversal_LevelOrder(ST_Node *root);
 void traversal(ST_Node *root, E_TRAVERSAL_TYPE type);
+
+
 
 int main()
 {
@@ -69,6 +73,10 @@ int main()
     printf("%d\n", root->left->left->value);
     printf("%d\n", root->left->right->value);
     traversal(root, TRAVERSAL_LEVEL_ORDER);
+
+    ST_Node *target = search(root, 7);
+    printf("%d\n", target->left->value);
+    printf("%d\n", target->right->value);
 
     return 0;
 }
@@ -176,6 +184,20 @@ ST_Node* insert(ST_Node *node, int data)
 
     return node;
 }
+
+ST_Node* search(ST_Node *root, int data)
+{
+    if (root == NULL | root->value == data) {
+        return root;
+    }
+
+    if (data < root->value) {
+        return search(root->left, data);
+    } else {
+        return search(root->right, data);
+    }
+}
+
 
 
 void traversal_InOrder(ST_Node *root)

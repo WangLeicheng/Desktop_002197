@@ -174,7 +174,7 @@ struct MulOp {
 
     template <typename T> 
     T identity() const {
-        return  T(0);
+        return  T(1);
     }
 };
 
